@@ -1,0 +1,45 @@
+﻿@page "/pet-simulator"
+@using MiniPetSimulator_Hybrid.Models
+
+@namespace MiniPetSimulator_Hybrid.Pages
+
+<h3>Mini Pet Simulator</h3>
+
+<select @bind="petType">
+    <option disabled selected value="">-- Select a pet --</option>
+    <option>Dog</option>
+    <option>Cat</option>
+</select>
+
+<input @bind="petName" placeholder="Enter pet name" class="form-control" style="margin: 10px 0;" />
+
+<button @onclick="AdoptPet">Adopt</button>
+
+@if (myPet != null)
+{
+    <p>You adopted: <strong>@myPet.Name</strong></p>
+    <button @onclick="MakePetSpeak">Speak</button>
+    <button @onclick="MakePetEat">Eat</button>
+    <p>@output</p>
+}
+
+@code {
+    string petName;
+    string petType;
+    string output;
+    Pet myPet;
+
+    void AdoptPet()
+    {
+        myPet = petType switch{
+            "Dog" => new Dog(petName),
+    "Cat" => new Cat(petName),
+    _ => null
+        };
+
+        output = $"You adopted {myPet?.Name}!";
+    }
+
+    void MakePetSpeak() => output = myPet.Speak();
+    void MakePetEat() => output = myPet.Eat();
+}
