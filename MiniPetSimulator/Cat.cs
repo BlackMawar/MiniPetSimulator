@@ -1,0 +1,11 @@
+﻿namespace MiniPetSimulator
+{
+    internal class Cat : Pet
+    {
+        public Cat(string name) : base(name) { }
+        public override void speak()
+        {
+            Console.WriteLine($"{Name} says: Meow Meow!");
+        }
+    }
+}
